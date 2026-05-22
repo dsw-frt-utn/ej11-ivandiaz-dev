@@ -1,4 +1,6 @@
-﻿namespace Dsw2026Ej11.Collections;
+﻿using Dsw2026Ej11.Domain;
+
+namespace Dsw2026Ej11.Collections;
 
 /*
  * Para cada punto crear un método que permita:
@@ -16,4 +18,66 @@
  */
 public class CasoLinq
 {
+    private List<Libro> ListaLibros = Libro.CrearLista();
+    public Libro GetPrimero()
+    {
+        var primero = ListaLibros.First();
+        return primero; // $"Id: {primero.Id}, Título: {primero.Titulo}, Precio: {primero.Precio:C}";
+    }
+
+    public Libro GetUltimo()
+    {
+        var ultimo = ListaLibros.Last();
+        return ultimo;
+    }
+
+
+    public decimal GetTotalPrecios()
+    {
+        var total = ListaLibros.Sum(libro => libro.Precio);
+        return total;
+    }
+
+    public decimal GetPromedioPrecios()
+    {
+        var prom = ListaLibros.Average(libro => libro.Precio);
+        return prom;
+    }
+
+    public List<Libro> GetListById()
+    {
+        var libros = ListaLibros.Where(libro => libro.Id > 15).ToList();
+        return libros;
+    }
+
+    public List<string> GetLibros()
+    {
+        var libros = ListaLibros.Select(libro => $"Titulo: {libro.Titulo} -- Precio: {libro.Precio:C}").ToList();
+        return libros;
+    }
+
+    public Libro GetMayorPrecio()
+    {
+        var MasCaro = ListaLibros.OrderByDescending(libro => libro.Precio).First();
+        return MasCaro;
+    }
+
+    public Libro GetMenorPrecio()
+    {
+        Libro MasBarato = ListaLibros.OrderBy(libro => libro.Precio).First();
+        return MasBarato;
+    }
+
+    public List<Libro> GetMayorPromedio()
+    {
+        var libros = ListaLibros.Where(libro => libro.Precio > GetPromedioPrecios()).ToList();
+        return libros;
+    }
+
+    public List<Libro> GetOrdenDescendente()
+    {
+        var ListaOrdenada = ListaLibros.OrderByDescending(libro => libro.Titulo).ToList();
+        return ListaOrdenada;
+    }
+
 }
